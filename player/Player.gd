@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @export var speed = 200.0
+@export var tab_target_range: float = 250.0
 @onready var anim = $Sprite
 @onready var camera = $Camera
 
@@ -66,6 +67,8 @@ func handle_hover():
 func handle_actions():
 	if Input.is_action_just_pressed("tab_target"):
 		find_and_set_tab_target()
+	if Input.is_action_just_pressed("clear_target"):
+		TargetingManager.set_target(null)
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
@@ -74,19 +77,31 @@ func _unhandled_input(event):
 func find_and_set_tab_target():
 	var all_creatures = get_tree().get_nodes_in_group("creatures")
 	var valid_targets = []
+	var range_squared = tab_target_range * tab_target_range
 
 	for creature in all_creatures:
-		var direction_to_creature = (creature.global_position - global_position).normalized()
-		# Use dot product to check if the creature is in front of the player (within a 180-degree cone)
-		if direction_to_creature.dot(last_direction) > 0:
-			valid_targets.append(creature)
+		# Check if the creature is within range
+		if global_position.distance_squared_to(creature.global_position) > range_squared:
+			continue
+
+		valid_targets.append(creature)
 
 	if valid_targets.is_empty():
+		TargetingManager.set_target(null)
 		return
 
 	# Sort valid targets by distance to the player
 	valid_targets.sort_custom(func(a, b):
 		return global_position.distance_squared_to(a.global_position) < global_position.distance_squared_to(b.global_position)
 	)
+	
+	var current_target = TargetingManager.current_target
+	var current_target_index = -1
+	if current_target in valid_targets:
+		current_target_index = valid_targets.find(current_target)
+	
+	var next_target_index = 0
+	if current_target_index != -1:
+		next_target_index = (current_target_index + 1) % valid_targets.size()
 
-	TargetingManager.set_target(valid_targets[0])
+	TargetingManager.set_target(valid_targets[next_target_index])

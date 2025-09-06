@@ -6,6 +6,7 @@
 [node name="Creature" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_iwg7y")
+display_name = null
 movement_type = 0
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]

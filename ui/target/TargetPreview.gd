@@ -13,7 +13,7 @@ func update_preview(target: CharacterBody2D):
 			preview_sprite.sprite_frames = target_sprite.sprite_frames
 			preview_sprite.play("idle_down")
 
-		name_label.text = target.name
+		name_label.text = target.display_name if target.display_name != "" else target.name
 		show()
 	else:
 		hide()

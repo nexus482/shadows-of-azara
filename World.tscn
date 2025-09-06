@@ -14,6 +14,7 @@ script = ExtResource("1_4yhpo")
 [node name="Player" parent="Cliffhaven" instance=ExtResource("3_a8cgr")]
 position = Vector2(695, 275)
 speed = 100.0
+tab_target_range = 300.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

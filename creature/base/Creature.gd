@@ -4,6 +4,7 @@ extends CharacterBody2D
 enum MovementType { NONE, IDLE, RANDOM, WAYPOINT }
 
 @export var speed: float = 50.0
+@export var display_name: String = ""
 
 var movement_type: MovementType = MovementType.NONE:
 	set(value):
