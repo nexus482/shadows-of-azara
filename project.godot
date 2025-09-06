@@ -1,0 +1,32 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Shadows of Azara"
+config/description="Explore the RPG world of Azara!"
+run/main_scene="uid://c76cc1xchslyw"
+config/features=PackedStringArray("4.4", "Forward Plus")
+boot_splash/show_image=false
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+textures/show_image=false
+textures/version=""
+textures/description="Explore the RPG world of Azara!"
+textures/name="Shadows of Azara"
+textures/size/viewport_height=720
+textures/size/viewport_width=1280

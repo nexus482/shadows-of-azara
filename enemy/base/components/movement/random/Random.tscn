@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://j7wvgu18p0mi"]
+
+[ext_resource type="Script" uid="uid://b4ucday7eluim" path="res://enemy/base/components/movement/random/Random.gd" id="1_ajprl"]
+
+[node name="Random" type="Node"]
+script = ExtResource("1_ajprl")

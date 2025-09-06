@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8yye747vtsbe"]
+
+[ext_resource type="Script" uid="uid://35src4ng73b0" path="res://enemy/base/components/movement/waypoint/Waypoint.gd" id="1_t0hi2"]
+
+[node name="Waypoint" type="Node"]
+script = ExtResource("1_t0hi2")
+
+[node name="Path" type="Path2D" parent="."]
