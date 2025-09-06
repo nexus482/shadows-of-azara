@@ -1,21 +1,20 @@
 extends MovementAI
 class_name IdleMovement
 
-@export_enum("Left", "Right", "Up", "Down") var start_direction: String = "Down"
+# A proper enum for directions
+enum Direction { DOWN, UP, LEFT, RIGHT }
 
-func _ready() -> void:
-	if not start_direction in ["Left", "Right", "Up", "Down"]:
-		push_warning("Invalid start_direction '%s' in IdleMovement. Defaulting to 'Down'." % start_direction)
-		start_direction = "Down"
+# This will be set by the Creature script
+var direction: Direction = Direction.DOWN
 
 func move(actor: CharacterBody2D, _delta: float) -> Vector2:
-	match start_direction:
-		"Left":
+	match direction:
+		Direction.LEFT:
 			actor.last_direction = Vector2.LEFT
-		"Right":
+		Direction.RIGHT:
 			actor.last_direction = Vector2.RIGHT
-		"Up":
+		Direction.UP:
 			actor.last_direction = Vector2.UP
-		"Down":
+		Direction.DOWN:
 			actor.last_direction = Vector2.DOWN
 	return Vector2.ZERO

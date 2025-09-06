@@ -6,10 +6,12 @@
 [node name="Creature" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_iwg7y")
+movement_type = 0
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 
 [node name="Collision" type="CollisionShape2D" parent="."]
+visible = false
 disabled = true
 
 [node name="MovementAI" type="Node" parent="."]

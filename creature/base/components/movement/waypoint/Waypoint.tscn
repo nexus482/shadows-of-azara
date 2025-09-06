@@ -4,5 +4,3 @@
 
 [node name="Waypoint" type="Node"]
 script = ExtResource("1_t0hi2")
-
-[node name="Path" type="Path2D" parent="."]

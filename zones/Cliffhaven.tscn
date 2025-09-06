@@ -1,11 +1,8 @@
-[gd_scene load_steps=13 format=4 uid="uid://ff8pmvbhfqnl"]
+[gd_scene load_steps=9 format=4 uid="uid://ff8pmvbhfqnl"]
 
 [ext_resource type="Texture2D" uid="uid://da3iafey4y56a" path="res://assets/tiles/ground.png" id="1_13fe0"]
 [ext_resource type="Texture2D" uid="uid://ctlgp6bj1jspo" path="res://assets/tiles/objects.png" id="2_0t65a"]
 [ext_resource type="PackedScene" uid="uid://ci38bgb7873ed" path="res://creature/wolf/Wolf.tscn" id="3_r66nq"]
-[ext_resource type="PackedScene" uid="uid://j7wvgu18p0mi" path="res://creature/base/components/movement/random/Random.tscn" id="4_yh12b"]
-[ext_resource type="PackedScene" uid="uid://df3et2kmof356" path="res://creature/base/components/movement/idle/Idle.tscn" id="5_ek03y"]
-[ext_resource type="PackedScene" uid="uid://b8yye747vtsbe" path="res://creature/base/components/movement/waypoint/Waypoint.tscn" id="6_ixcb1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_13fe0"]
 texture = ExtResource("1_13fe0")
@@ -107,12 +104,6 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/physics_material = SubResource("PhysicsMaterial_0t65a")
 sources/1 = SubResource("TileSetAtlasSource_r66nq")
 
-[sub_resource type="Curve2D" id="Curve2D_ixcb1"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 606, 505, 0, 0, 0, 0, 441, 565, 0, 0, 0, 0, 604, 563, 0, 0, 0, 0, 441, 565, 0, 0, 0, 0, 606, 505)
-}
-point_count = 5
-
 [node name="Cliffhaven" type="Node2D"]
 y_sort_enabled = true
 
@@ -129,49 +120,31 @@ tile_set = SubResource("TileSet_yh12b")
 y_sort_enabled = true
 
 [node name="Wolf" parent="Main/Creatures" instance=ExtResource("3_r66nq")]
-position = Vector2(76, 175)
-
-[node name="Random" parent="Main/Creatures/Wolf/MovementAI" index="0" instance=ExtResource("4_yh12b")]
+position = Vector2(488, 224)
+movement_type = 1
+idle_direction = 0
 
 [node name="Wolf2" parent="Main/Creatures" instance=ExtResource("3_r66nq")]
-position = Vector2(615, 144)
-
-[node name="Idle" parent="Main/Creatures/Wolf2/MovementAI" index="0" instance=ExtResource("5_ek03y")]
+position = Vector2(799, 142)
+movement_type = 2
+wander_radius = 100.0
 
 [node name="Wolf3" parent="Main/Creatures" instance=ExtResource("3_r66nq")]
-position = Vector2(887, 276)
-
-[node name="Random" parent="Main/Creatures/Wolf3/MovementAI" index="0" instance=ExtResource("4_yh12b")]
+position = Vector2(179, 535)
+movement_type = 2
+wander_radius = 100.0
 
 [node name="Wolf4" parent="Main/Creatures" instance=ExtResource("3_r66nq")]
-position = Vector2(858, 441)
-
-[node name="Random" parent="Main/Creatures/Wolf4/MovementAI" index="0" instance=ExtResource("4_yh12b")]
+position = Vector2(350, 814)
+movement_type = 2
+wander_radius = 100.0
 
 [node name="Wolf5" parent="Main/Creatures" instance=ExtResource("3_r66nq")]
-position = Vector2(143, 506)
-
-[node name="Random" parent="Main/Creatures/Wolf5/MovementAI" index="0" instance=ExtResource("4_yh12b")]
+position = Vector2(901, 410)
+movement_type = 2
+wander_radius = 100.0
 
 [node name="Wolf6" parent="Main/Creatures" instance=ExtResource("3_r66nq")]
-position = Vector2(594, 760)
-
-[node name="Random" parent="Main/Creatures/Wolf6/MovementAI" index="0" instance=ExtResource("4_yh12b")]
-
-[node name="Wolf7" parent="Main/Creatures" instance=ExtResource("3_r66nq")]
-position = Vector2(699, 549)
-
-[node name="Waypoint" parent="Main/Creatures/Wolf7/MovementAI" index="0" instance=ExtResource("6_ixcb1")]
-
-[node name="Path" parent="Main/Creatures/Wolf7/MovementAI/Waypoint" index="0"]
-position = Vector2(89, 43)
-curve = SubResource("Curve2D_ixcb1")
-
-[editable path="Main/Creatures/Wolf"]
-[editable path="Main/Creatures/Wolf2"]
-[editable path="Main/Creatures/Wolf3"]
-[editable path="Main/Creatures/Wolf4"]
-[editable path="Main/Creatures/Wolf5"]
-[editable path="Main/Creatures/Wolf6"]
-[editable path="Main/Creatures/Wolf7"]
-[editable path="Main/Creatures/Wolf7/MovementAI/Waypoint"]
+position = Vector2(699, 591)
+movement_type = 2
+wander_radius = 100.0
