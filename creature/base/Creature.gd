@@ -19,6 +19,7 @@ var wander_radius: float = 100.0
 var waypoint_path: NodePath
 
 @onready var animated_sprite: AnimatedSprite2D = $Sprite
+@onready var display_name_label: Label = $Name
 var movement_ai = null
 var last_direction: Vector2 = Vector2.DOWN
 
@@ -84,6 +85,8 @@ func _ready() -> void:
 		add_child(target_indicator)
 		move_child(target_indicator, 0) # Draw indicator behind sprite
 		target_indicator.hide()
+		display_name_label.text = display_name
+		display_name_label.hide()
 
 
 func _setup_movement_ai():
@@ -156,11 +159,13 @@ func on_hover_exit():
 func select():
 	is_selected = true
 	target_indicator.show()
+	display_name_label.show()
 	_update_highlight()
 
 func deselect():
 	is_selected = false
 	target_indicator.hide()
+	display_name_label.hide()
 	_update_highlight()
 
 func _update_highlight():

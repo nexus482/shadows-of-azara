@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://df6vtvahwcacs"]
+[gd_scene load_steps=4 format=3 uid="uid://df6vtvahwcacs"]
 
 [ext_resource type="Script" uid="uid://dag52024ojkbe" path="res://ui/target/TargetPreview.gd" id="1_abcde"]
+[ext_resource type="FontFile" uid="uid://cyk4c2fnawvjp" path="res://assets/m5x7.ttf" id="2_631cf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bjlma"]
 content_margin_left = 24.0
@@ -31,6 +32,8 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_631cf")
+theme_override_font_sizes/font_size = 32
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="Panel/HBoxContainer"]
 layout_mode = 2
