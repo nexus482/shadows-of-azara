@@ -18,7 +18,7 @@ boot_splash/show_image=false
 
 [autoload]
 
-TargetingManager="*res://autoload/TargetingManager.gd"
+TargetingManager="*res://ui/target/TargetingManager.gd"
 
 [display]
 

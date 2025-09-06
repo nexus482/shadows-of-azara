@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://c76cc1xchslyw"]
+
+[ext_resource type="Script" uid="uid://b8drn8fddjgaa" path="res://World.gd" id="1_4yhpo"]
+[ext_resource type="PackedScene" uid="uid://ff8pmvbhfqnl" path="res://zones/Cliffhaven.tscn" id="2_jsse5"]
+[ext_resource type="PackedScene" uid="uid://dfyymid6jy6wk" path="res://player/Player.tscn" id="3_a8cgr"]
+[ext_resource type="PackedScene" uid="uid://df6vtvahwcacs" path="res://ui/target/TargetPreview.tscn" id="4_iroid"]
+
+[node name="World" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_4yhpo")
+
+[node name="Cliffhaven" parent="." instance=ExtResource("2_jsse5")]
+
+[node name="Player" parent="Cliffhaven" instance=ExtResource("3_a8cgr")]
+position = Vector2(695, 275)
+speed = 100.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TargetPreviewUI" parent="CanvasLayer" instance=ExtResource("4_iroid")]

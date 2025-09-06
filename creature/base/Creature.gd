@@ -17,7 +17,7 @@ func _ready() -> void:
 		push_warning("Creature is missing a movement AI component under the 'MovementAI' node.")
 	animated_sprite.play("idle_" + get_direction_string(last_direction))
 
-	target_indicator = preload("res://scenes/ui/TargetIndicator.tscn").instantiate()
+	target_indicator = preload("res://ui/target/TargetIndicator.tscn").instantiate()
 	add_child(target_indicator)
 	move_child(target_indicator, 0) # Draw indicator behind sprite
 	target_indicator.hide()
