@@ -9,7 +9,7 @@ func _ready() -> void:
 	var directions = [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT]
 	last_direction = directions[randi() % directions.size()]
 	if not movement_ai:
-		push_warning("Enemy is missing a movement AI component under the 'MovementAI' node.")
+		push_warning("Creature is missing a movement AI component under the 'MovementAI' node.")
 	animated_sprite.play("idle_" + get_direction_string(last_direction))
 
 func _physics_process(delta: float) -> void:

@@ -1,6 +1,6 @@
 [gd_scene load_steps=47 format=3 uid="uid://ci38bgb7873ed"]
 
-[ext_resource type="PackedScene" uid="uid://csd6yvajpv7v1" path="res://enemy/base/Enemy.tscn" id="1_55onw"]
+[ext_resource type="PackedScene" uid="uid://csd6yvajpv7v1" path="res://creature/base/Creature.tscn" id="1_55onw"]
 [ext_resource type="Texture2D" uid="uid://cyexr4wtjtmg1" path="res://assets/creatures/wolf/idle_down.png" id="2_rntc2"]
 [ext_resource type="Texture2D" uid="uid://dekdb0tlkuw1w" path="res://assets/creatures/wolf/idle_right.png" id="3_5yax0"]
 [ext_resource type="Texture2D" uid="uid://ca5inqv6awyyq" path="res://assets/creatures/wolf/idle_left.png" id="3_uk4cp"]

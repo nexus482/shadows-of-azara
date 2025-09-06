@@ -2,10 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://da3iafey4y56a" path="res://assets/tiles/ground.png" id="1_13fe0"]
 [ext_resource type="Texture2D" uid="uid://ctlgp6bj1jspo" path="res://assets/tiles/objects.png" id="2_0t65a"]
-[ext_resource type="PackedScene" uid="uid://ci38bgb7873ed" path="res://enemy/wolf/Wolf.tscn" id="3_r66nq"]
-[ext_resource type="PackedScene" uid="uid://j7wvgu18p0mi" path="res://enemy/base/components/movement/random/Random.tscn" id="4_yh12b"]
-[ext_resource type="PackedScene" uid="uid://df3et2kmof356" path="res://enemy/base/components/movement/idle/Idle.tscn" id="5_ek03y"]
-[ext_resource type="PackedScene" uid="uid://b8yye747vtsbe" path="res://enemy/base/components/movement/waypoint/Waypoint.tscn" id="6_ixcb1"]
+[ext_resource type="PackedScene" uid="uid://ci38bgb7873ed" path="res://creature/wolf/Wolf.tscn" id="3_r66nq"]
+[ext_resource type="PackedScene" uid="uid://j7wvgu18p0mi" path="res://creature/base/components/movement/random/Random.tscn" id="4_yh12b"]
+[ext_resource type="PackedScene" uid="uid://df3et2kmof356" path="res://creature/base/components/movement/idle/Idle.tscn" id="5_ek03y"]
+[ext_resource type="PackedScene" uid="uid://b8yye747vtsbe" path="res://creature/base/components/movement/waypoint/Waypoint.tscn" id="6_ixcb1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_13fe0"]
 texture = ExtResource("1_13fe0")
