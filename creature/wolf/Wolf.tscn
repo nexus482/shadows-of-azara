@@ -305,9 +305,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v0pfh"]
-radius = 6.0
-height = 16.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v0pfh"]
+size = Vector2(10, 8)
 
 [node name="Wolf" instance=ExtResource("1_55onw")]
 display_name = "Timber Wolf"
@@ -317,5 +316,7 @@ sprite_frames = SubResource("SpriteFrames_34ec7")
 animation = &"idle_right"
 
 [node name="Collision" parent="." index="1"]
-shape = SubResource("CapsuleShape2D_v0pfh")
+visible = true
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_v0pfh")
 disabled = false
