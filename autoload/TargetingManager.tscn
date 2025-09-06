@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7k4yx068cal6"]
+
+[ext_resource type="Script" uid="uid://b8hyib42fdor4" path="res://autoload/TargetingManager.gd" id="1_mrdal"]
+
+[node name="TargetingManager" type="Node"]
+script = ExtResource("1_mrdal")

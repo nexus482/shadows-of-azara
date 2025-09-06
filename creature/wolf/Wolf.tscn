@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://ci38bgb7873ed"]
+[gd_scene load_steps=48 format=3 uid="uid://ci38bgb7873ed"]
 
 [ext_resource type="PackedScene" uid="uid://csd6yvajpv7v1" path="res://creature/base/Creature.tscn" id="1_55onw"]
 [ext_resource type="Texture2D" uid="uid://cyexr4wtjtmg1" path="res://assets/creatures/wolf/idle_down.png" id="2_rntc2"]
@@ -305,6 +305,10 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v0pfh"]
+radius = 6.0
+height = 16.0
+
 [node name="Wolf" instance=ExtResource("1_55onw")]
 
 [node name="Sprite" parent="." index="0"]
@@ -312,5 +316,5 @@ sprite_frames = SubResource("SpriteFrames_34ec7")
 animation = &"idle_right"
 
 [node name="Collision" parent="." index="1"]
-position = Vector2(-4.5, -1.5)
-scale = Vector2(5, 5)
+shape = SubResource("CapsuleShape2D_v0pfh")
+disabled = false

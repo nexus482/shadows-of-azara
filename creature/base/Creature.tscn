@@ -3,12 +3,14 @@
 [ext_resource type="Script" uid="uid://wwm63h84s8c7" path="res://creature/base/Creature.gd" id="1_iwg7y"]
 [ext_resource type="Script" uid="uid://dmmxlxkfsap38" path="res://creature/base/components/movement/Movement.gd" id="2_8ly4b"]
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Creature" type="CharacterBody2D"]
+collision_layer = 4
 script = ExtResource("1_iwg7y")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 
 [node name="Collision" type="CollisionShape2D" parent="."]
+disabled = true
 
 [node name="MovementAI" type="Node" parent="."]
 script = ExtResource("2_8ly4b")
