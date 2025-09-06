@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://df6vtvahwcacs"]
+
+[ext_resource type="Script" uid="uid://dag52024ojkbe" path="res://scenes/ui/TargetPreview.gd" id="1_abcde"]
+
+[node name="TargetPreview" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_abcde")
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 220.0
+offset_bottom = 100.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 2
+
+[node name="SubViewport" type="SubViewport" parent="Panel/HBoxContainer"]
+transparent_bg = true
+size = Vector2i(102, 76)
+render_target_update_mode = 4
+
+[node name="PreviewSprite" type="AnimatedSprite2D" parent="Panel/HBoxContainer/SubViewport"]
+unique_name_in_owner = true
+scale = Vector2(2, 2)
+
+[node name="Camera2D" type="Camera2D" parent="Panel/HBoxContainer/SubViewport"]
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
