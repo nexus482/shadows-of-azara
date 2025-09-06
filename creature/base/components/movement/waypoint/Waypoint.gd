@@ -4,7 +4,7 @@ class_name WaypointMovement
 var current_waypoint_index: int = 0
 @onready var path: Path2D = $Path
 
-func move(actor: CharacterBody2D, delta: float) -> Vector2:
+func move(actor: CharacterBody2D, _delta: float) -> Vector2:
 	if not path:
 		push_warning("WaypointMovement component is missing its child Path2D node.")
 		return Vector2.ZERO

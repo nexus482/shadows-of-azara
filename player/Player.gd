@@ -12,7 +12,7 @@ func _physics_process(delta):
 	handle_hover()
 	handle_actions()
 
-func handle_movement(delta):
+func handle_movement(_delta):
 	var input_dir = Vector2.ZERO
 	input_dir.x = Input.get_axis("ui_left", "ui_right")
 	input_dir.y = Input.get_axis("ui_up", "ui_down")

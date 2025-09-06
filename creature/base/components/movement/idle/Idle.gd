@@ -8,7 +8,7 @@ func _ready() -> void:
 		push_warning("Invalid start_direction '%s' in IdleMovement. Defaulting to 'Down'." % start_direction)
 		start_direction = "Down"
 
-func move(actor: CharacterBody2D, delta: float) -> Vector2:
+func move(actor: CharacterBody2D, _delta: float) -> Vector2:
 	match start_direction:
 		"Left":
 			actor.last_direction = Vector2.LEFT
