@@ -123,28 +123,34 @@ y_sort_enabled = true
 position = Vector2(488, 224)
 movement_type = 1
 idle_direction = 0
+combat_type = 2
 
 [node name="Wolf2" parent="Main/Creatures" instance=ExtResource("3_r66nq")]
 position = Vector2(799, 142)
 movement_type = 2
 wander_radius = 100.0
+combat_type = 1
 
 [node name="Wolf3" parent="Main/Creatures" instance=ExtResource("3_r66nq")]
 position = Vector2(179, 535)
 movement_type = 2
 wander_radius = 100.0
+combat_type = 1
 
 [node name="Wolf4" parent="Main/Creatures" instance=ExtResource("3_r66nq")]
 position = Vector2(350, 814)
 movement_type = 2
 wander_radius = 100.0
+combat_type = 1
 
 [node name="Wolf5" parent="Main/Creatures" instance=ExtResource("3_r66nq")]
 position = Vector2(901, 410)
 movement_type = 2
 wander_radius = 100.0
+combat_type = 1
 
 [node name="Wolf6" parent="Main/Creatures" instance=ExtResource("3_r66nq")]
 position = Vector2(699, 591)
 movement_type = 2
 wander_radius = 100.0
+combat_type = 1

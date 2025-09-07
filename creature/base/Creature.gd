@@ -2,10 +2,14 @@
 extends CharacterBody2D
 
 enum MovementType { NONE, IDLE, RANDOM, WAYPOINT }
+enum CombatType { PASSIVE, NEUTRAL, AGGRESSIVE }
+
+const LEASH_DISTANCE: float = 400.0
 
 @export var speed: float = 50.0
 @export var display_name: String = ""
 
+# --- Movement Properties ---
 var movement_type: MovementType = MovementType.NONE:
 	set(value):
 		movement_type = value
@@ -13,19 +17,30 @@ var movement_type: MovementType = MovementType.NONE:
 		if is_inside_tree() and not Engine.is_editor_hint():
 			_setup_movement_ai()
 
-# These properties are now controlled by _get_property_list
 var idle_direction: IdleMovement.Direction = IdleMovement.Direction.DOWN
 var wander_radius: float = 100.0
 var waypoint_path: NodePath
 
+# --- Combat Properties ---
+var combat_type: CombatType = CombatType.PASSIVE:
+	set(value):
+		combat_type = value
+		notify_property_list_changed()
+		if is_inside_tree() and not Engine.is_editor_hint():
+			_setup_combat_ai()
+
 @onready var animated_sprite: AnimatedSprite2D = $Sprite
 @onready var display_name_label: Label = $Name
 var movement_ai = null
+var combat_ai = null
 var last_direction: Vector2 = Vector2.DOWN
+var spawn_position: Vector2
 
 var target_indicator: Node2D
 var is_hovered = false
 var is_selected = false
+var in_combat = false
+var is_returning_to_spawn = false
 
 
 func _get_property_list():
@@ -45,7 +60,7 @@ func _get_property_list():
 				"type": TYPE_INT,
 				"usage": PROPERTY_USAGE_DEFAULT | PROPERTY_USAGE_SCRIPT_VARIABLE,
 				"hint": PROPERTY_HINT_ENUM,
-				"hint_string": "Down,Up,Left,Right" # Matches IdleMovement.Direction enum
+				"hint_string": "Down,Up,Left,Right"
 			})
 		MovementType.RANDOM:
 			properties.append({
@@ -53,44 +68,50 @@ func _get_property_list():
 				"type": TYPE_FLOAT,
 				"usage": PROPERTY_USAGE_DEFAULT | PROPERTY_USAGE_SCRIPT_VARIABLE,
 				"hint": PROPERTY_HINT_RANGE,
-				"hint_string": "10,500,1" # Min, Max, Step
+				"hint_string": "10,500,1"
 			})
 		MovementType.WAYPOINT:
 			properties.append({
 				"name": "waypoint_path",
 				"type": TYPE_NODE_PATH,
 				"usage": PROPERTY_USAGE_DEFAULT | PROPERTY_USAGE_SCRIPT_VARIABLE,
-				"hint_string": "Path2D" # Restricts node picker to Path2D
+				"hint_string": "Path2D"
 			})
+			
+	properties.append({
+		"name": "combat_type",
+		"type": TYPE_INT,
+		"usage": PROPERTY_USAGE_DEFAULT | PROPERTY_USAGE_SCRIPT_VARIABLE,
+		"hint": PROPERTY_HINT_ENUM,
+		"hint_string": "Passive,Neutral,Aggressive"
+	})
 			
 	return properties
 
 
 func _enter_tree():
-	# This runs when the node enters the scene tree, both in the editor and in-game.
-	# We only want to set up the AI when the game is running.
 	if not Engine.is_editor_hint():
 		_setup_movement_ai()
+		_setup_combat_ai()
 
 
 func _ready() -> void:
 	add_to_group("creatures")
+	spawn_position = global_position
 	var directions = [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT]
 	last_direction = directions[randi() % directions.size()]
 	
-	# The check ensures this doesn't try to instantiate nodes in the editor
 	if not Engine.is_editor_hint():
 		animated_sprite.play("idle_" + get_direction_string(last_direction))
 		target_indicator = preload("res://ui/target/TargetIndicator.tscn").instantiate()
 		add_child(target_indicator)
-		move_child(target_indicator, 0) # Draw indicator behind sprite
+		move_child(target_indicator, 0)
 		target_indicator.hide()
 		display_name_label.text = display_name
 		display_name_label.hide()
 
 
 func _setup_movement_ai():
-	# Clear existing AI
 	if movement_ai:
 		movement_ai.queue_free()
 		movement_ai = null
@@ -123,15 +144,78 @@ func _setup_movement_ai():
 					push_warning("Waypoint path is not a Path2D node or is not set for this creature.")
 
 
+func _setup_combat_ai():
+	if combat_ai:
+		combat_ai.queue_free()
+		combat_ai = null
+	for child in $CombatAI.get_children():
+		child.queue_free()
+
+	var new_ai_scene = null
+	match combat_type:
+		CombatType.PASSIVE:
+			new_ai_scene = preload("res://creature/base/components/combat/passive/Passive.tscn")
+		CombatType.NEUTRAL:
+			new_ai_scene = preload("res://creature/base/components/combat/neutral/Neutral.tscn")
+		CombatType.AGGRESSIVE:
+			new_ai_scene = preload("res://creature/base/components/combat/aggressive/Aggressive.tscn")
+	
+	if new_ai_scene:
+		combat_ai = new_ai_scene.instantiate()
+		$CombatAI.add_child(combat_ai)
+		
+
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
-		return # Don't run physics in the editor
+		return
 		
-	if movement_ai:
-		var movement_velocity = movement_ai.move(self, delta)
-		velocity = movement_velocity
-		move_and_slide()
+	var movement_velocity = Vector2.ZERO
+
+	if in_combat:
+		var target = combat_ai.combat_target
+		if not is_instance_valid(target) or global_position.distance_to(spawn_position) > LEASH_DISTANCE:
+			exit_combat()
+		else:
+			movement_velocity = combat_ai.process_combat(self, delta)
+	elif is_returning_to_spawn:
+		if global_position.distance_to(spawn_position) < 5.0:
+			print(display_name + " has returned to its spawn point.")
+			is_returning_to_spawn = false
+		else:
+			var direction = (spawn_position - global_position).normalized()
+			movement_velocity = direction * speed
+	else:
+		var player = get_tree().get_first_node_in_group("player")
+		if player and combat_ai.can_engage(self, player):
+			enter_combat(player)
+		
+		if movement_ai:
+			movement_velocity = movement_ai.move(self, delta)
+	
+	velocity = movement_velocity
+	move_and_slide()
 	update_animation()
+
+func enter_combat(target):
+	if in_combat or is_returning_to_spawn or combat_type == CombatType.PASSIVE:
+		return
+	in_combat = true
+	combat_ai._enter_combat(target)
+	print(display_name + " has entered combat!")
+
+func exit_combat():
+	if not in_combat:
+		return
+	in_combat = false
+	combat_ai._exit_combat()
+	print(display_name + " has left combat and is returning to spawn.")
+	
+	is_returning_to_spawn = true
+
+func take_damage(amount, source):
+	print(display_name + " took " + str(amount) + " damage.")
+	if combat_type == CombatType.NEUTRAL and not in_combat:
+		enter_combat(source)
 
 func is_pixel_opaque(screen_position: Vector2) -> bool:
 	var frame_texture = animated_sprite.sprite_frames.get_frame_texture(animated_sprite.animation, animated_sprite.frame)

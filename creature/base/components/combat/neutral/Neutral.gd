@@ -1,0 +1,2 @@
+extends CombatAI
+class_name NeutralCombatAI

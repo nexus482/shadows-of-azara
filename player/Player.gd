@@ -8,6 +8,9 @@ extends CharacterBody2D
 var hovered_creature = null
 var last_direction = Vector2.DOWN
 
+func _ready():
+	add_to_group("player")
+
 func _physics_process(delta):
 	handle_movement(delta)
 	handle_hover()

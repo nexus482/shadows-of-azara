@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4t8ttmp7j8vl"]
+
+[ext_resource type="Script" uid="uid://b5ynn7h3girn5" path="res://creature/base/components/combat/passive/Passive.gd" id="1_nciw5"]
+
+[node name="Passive" type="Node"]
+script = ExtResource("1_nciw5")

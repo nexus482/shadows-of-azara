@@ -1,13 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://csd6yvajpv7v1"]
+[gd_scene load_steps=5 format=3 uid="uid://csd6yvajpv7v1"]
 
 [ext_resource type="Script" uid="uid://wwm63h84s8c7" path="res://creature/base/Creature.gd" id="1_iwg7y"]
 [ext_resource type="Script" uid="uid://dmmxlxkfsap38" path="res://creature/base/components/movement/Movement.gd" id="2_8ly4b"]
 [ext_resource type="FontFile" uid="uid://cyk4c2fnawvjp" path="res://assets/m5x7.ttf" id="3_8ly4b"]
+[ext_resource type="Script" uid="uid://d2xe43v2b6umf" path="res://creature/base/components/combat/Combat.gd" id="3_j8h6h"]
 
 [node name="Creature" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_iwg7y")
 movement_type = 0
+combat_type = 0
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 
@@ -17,6 +19,9 @@ disabled = true
 
 [node name="MovementAI" type="Node" parent="."]
 script = ExtResource("2_8ly4b")
+
+[node name="CombatAI" type="Node" parent="."]
+script = ExtResource("3_j8h6h")
 
 [node name="Name" type="Label" parent="."]
 offset_left = -50.0
